@@ -1,0 +1,41 @@
+---
+title: "prueba"
+format: 
+  revealjs:
+    embed-resources: true
+execute: 
+  echo: true
+---
+
+## carga de datos
+
+```{r}
+library(tidyverse)
+datos <- read_csv(file = "./datos/accidentes.csv")
+datos
+```
+
+---
+
+RESUMEN DATOS
+
+```{r}
+
+# resumen de los datos
+
+resumen <- datos |> count(sexo)
+```
+
+---
+
+VISUALIZACIÓN
+
+```{r}
+#| code-fold: true
+gg <- ggplot(resumen) +
+  geom_col(aes(x=sexo, y = n, fill = sexo), alpha = 0.56) +
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+plotly::ggplotly(gg)
+
+```
